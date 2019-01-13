@@ -40,10 +40,13 @@ pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
     // matches either canada or united states in one regex
     let either = Regex::new(r"PPL\s+(US|CA)")?;
 
+    // matches city-name from line
+    let city_re = Regex::new(r"\d+\s(\w+)")?;
     for line in BufReader::new(file).lines() {
         let unwrapped = line?;
-        if  either.is_match(&unwrapped) {
-            write!(output, "{}\n", unwrapped)?;
+        if either.is_match(&unwrapped) {
+            let city = city_re.captures_iter(&unwrapped).next().unwrap();
+            write!(output, "{}\n", city.get(1).unwrap().as_str())?;
         }
     };
 
