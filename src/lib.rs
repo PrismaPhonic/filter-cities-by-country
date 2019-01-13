@@ -52,7 +52,7 @@ pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
                 .unwrap();
             let cropped = capture.get(1).unwrap().as_str();
 
-            let filter_more_re = Regex::new(r"^([\w'-]+\s[\w'-]+)\D*([-]?\d+\.\d+\s[-]?\d+\.\d+\s+P\s+PPL\s\D+)")?;
+            let filter_more_re = Regex::new(r"^([\w‘'-\.]+\s[\w‘'-\.]+)\D*([-]?\d+\.\d+\s[-]?\d+\.\d+\s+P\s+PPL\s\D+)")?;
             let capture_2 = filter_more_re.captures_iter(&cropped).next().unwrap();
             let city = capture_2.get(1).unwrap().as_str();
             let rest = capture_2.get(2).unwrap().as_str();
